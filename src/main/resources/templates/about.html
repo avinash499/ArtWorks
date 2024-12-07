@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Infinity Art Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 36px;
+            color: #333;
+        }
+
+        /* About Section */
+        .about-section {
+            background: #fff;
+            padding: 50px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s forwards 0.3s;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .about-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .about-description {
+            font-size: 18px;
+            color: #7f8c8d;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .about-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-box {
+            width: 30%;
+            text-align: center;
+            padding: 20px;
+            background: #ecf0f1;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s forwards 0.5s;
+        }
+
+        .info-box h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+
+        .info-box p {
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+
+        .about-team {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .team-member {
+            width: 23%;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: scale(1.05);
+        }
+
+        .team-member img {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .team-member h4 {
+            font-size: 20px;
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+
+        .team-member p {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <h1>About Us - Infinity Art Gallery</h1>
+
+    <!-- About Section -->
+    <div class="about-section">
+        <h2 class="about-title">Welcome to Infinity Art Gallery</h2>
+        <p class="about-description">
+            At Infinity Art Gallery, we celebrate the beauty and diversity of art from various artists around the world. Our mission is to provide an inspiring space where art lovers can explore and acquire pieces that speak to their soul.
+            <br><br>
+            Our gallery is committed to showcasing both classic and contemporary works, bridging the past with the present. Every piece displayed has its own unique story, offering a glimpse into the world of creativity and imagination.
+        </p>
+
+        <!-- Info Boxes -->
+        <div class="about-info">
+            <div class="info-box">
+                <h3>Our Mission</h3>
+                <p>We aim to provide a platform for artists to showcase their work while bringing art to a wider audience through accessible exhibitions and events.</p>
+            </div>
+            <div class="info-box">
+                <h3>Our Vision</h3>
+                <p>To be a leading art institution, known for our diverse collections and support for both emerging and established artists worldwide.</p>
+            </div>
+            
+        </div>
+
+        <!-- Team Section -->
+        <div class="about-team">
+            <div class="team-member">
+                <img src="https://via.placeholder.com/200" alt="Team Member">
+                <h4>G Karteek</h4>
+                <p></p>
+            </div>
+            <div class="team-member">
+                <img src="https://via.placeholder.com/200" alt="Team Member">
+                <h4>G Avinash</h4>
+                <p></p>
+            </div>
+            <div class="team-member">
+                <img src="https://via.placeholder.com/200" alt="Team Member">
+                <h4>M Sruthik</h4>
+                <p></p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

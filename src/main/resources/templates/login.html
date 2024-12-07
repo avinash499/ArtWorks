@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h1 {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-container .form-control {
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .form-container .btn-dark {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .form-container .text-link {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .form-container .text-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .form-container .text-link a:hover {
+            text-decoration: underline;
+        }
+
+        .form-container .alert {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <form class="form-signin" th:action="@{/login}" method="post">
+            <h1 class="text-center">Login</h1>
+
+            <!-- Error Message -->
+            <p class="alert alert-danger text-center" th:if="${param.error}">Invalid email or password.</p>
+
+            <!-- Email Input -->
+            <input type="text" class="form-control" placeholder="Email Address" name="username" id="username" required autofocus>
+            
+            <!-- Password Input -->
+            <input type="password" class="form-control" placeholder="Password" name="password" id="password" required>
+
+            <!-- Submit Button -->
+            <button class="btn btn-dark" type="submit">Sign in</button>
+
+            <!-- Link to Registration -->
+            <div class="text-link">
+                <p>Not a user yet? <a th:href="@{/register}">Register here</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap Scripts -->
+<script th:src="@{https://code.jquery.com/jquery-3.2.1.slim.min.js}" crossorigin="anonymous"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js}" crossorigin="anonymous"></script>
+<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js}" crossorigin="anonymous"></script>
+</body>
+</html>

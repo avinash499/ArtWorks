@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" th:href="@{/img/favicon.png}">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <!-- Main Style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <!-- Login Page CSS -->
+    <link rel="stylesheet" th:href="@{/css/loginpage.css}">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h1 {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .btn-dark {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 400;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .register-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <form class="form-signin" th:action="@{/register}" method="POST" th:object="${user}">
+            <h1 class="text-center">Register</h1>
+            <p class="alert alert-danger text-center" th:if="${emailError}">Email already in use.</p>
+
+            <input type="email" class="form-control" placeholder="Email Address" name="email" th:field="*{email}" required>
+            <input type="text" class="form-control" placeholder="First Name" name="first_name" th:field="*{firstName}" required>
+            <input type="text" class="form-control" placeholder="Last Name" name="last_name" th:field="*{lastName}" required>
+            <input type="text" class="form-control" placeholder="Phone Number" th:field="*{phoneNo}" required>
+            <input type="text" class="form-control" placeholder="Address" th:field="*{address}" required>
+            <input type="password" class="form-control" placeholder="Password" name="password" th:field="*{password}" required>
+
+            <div class="radio-group">
+                <label>
+                    <input type="radio" th:field="*{role}" th:value="user" name="userType" required>
+                    User
+                </label>
+                <label>
+                    <input type="radio" th:field="*{role}" th:value="artist" name="userType" required>
+                    Artist
+                </label>
+            </div>
+
+            <button class="btn btn-dark" type="submit">Register</button>
+
+            <div class="register-link">
+                <p>Already a member? <a th:href="@{/login}">Click here</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Fontawesome -->
+<script src="https://kit.fontawesome.com/1f4b1ad491.js" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<script th:src="@{https://code.jquery.com/jquery-3.2.1.slim.min.js}" crossorigin="anonymous"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js}" crossorigin="anonymous"></script>
+<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js}" crossorigin="anonymous"></script>
+</body>
+</html>
+	
