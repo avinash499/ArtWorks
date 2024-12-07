@@ -30,6 +30,7 @@ public class ArtworkServiceImpl implements ArtworkService {
         System.out.println(artwork.getImgUrl());
         artworkRepository.save(artwork);
     }
+    
 
     @Override
     public List<Artwork> getArtworks() {

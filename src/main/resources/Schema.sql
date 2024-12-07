@@ -2,43 +2,43 @@
 
 
 CREATE Table user(
-    id int not null auto_increment;
-    firstName varchar(225) not null;
-    lastName varchar (225) ;
-    email varchar(225) not null;
-    phoneNo varchar(13) not null;
-    password varchar (1000) not null;
-    address longtext not null;
-    role varchar(50) not null;
-    PRIMARY KEY (id);
+    id int not null auto_increment,
+    firstName varchar(225) not null,
+    lastName varchar (225),
+    email varchar(225) not null,
+    phoneNo varchar(13) not null,
+    password varchar (1000) not null,
+    address longtext not null,
+    role varchar(50) not null,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE artwork(
-    id int not null auto_increment;
-    title varchar(225) not null;
-    description varchar (2000) not null;
-    category varchar (225) not null;
-    label varchar(225) not null;
-    price int not null;
-    likes int not null;
-    imgUrl varchar(2000) not null;
-    owner_id int not null;
-    PRIMARY KEY (id);
-    FOREIGN KEY (owner_id) references user(id);
+    id int not null auto_increment,
+    title varchar(225) not null,
+    description varchar (2000) not null,
+    category varchar (225) not null,
+    label varchar(225) not null,
+    price int not null,
+    likes int not null,
+    imgUrl varchar(2000) not null,
+    owner_id int not null,
+    PRIMARY KEY (id),
+    FOREIGN KEY (owner_id) references user(id)
 );
 
 CREATE TABLE orders(
-  id int not null auto_increment;
-    email varchar(225) not null;
-    price int not null;
-    address varchar(5000) not null;
-    status varchar(225) not null;
-    ordered_at datetime not null;
-    user_id int not null;
-    artwork_id int not null;
-    PRIMARY KEY (id);
-    FOREIGN KEY (user_id) references user(id);
-    FOREIGN KEY (artwork_id) references artwork(id);
+  id int not null auto_increment,
+    email varchar(225) not null,
+    price int not null,
+    address varchar(5000) not null,
+    status varchar(225) not null,
+    ordered_at datetime not null,
+    user_id int not null,
+    artwork_id int not null,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) references user(id),
+    FOREIGN KEY (artwork_id) references artwork(id)
 );
 
 CREATE TABLE workshop(

@@ -7,26 +7,19 @@ import com.ken.infinity.services.ArtworkService;
 import com.ken.infinity.services.OrdersService;
 import com.ken.infinity.services.SecurityService;
 import com.ken.infinity.services.UserService;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class OrderController {
-    UserService userService;
-    SecurityService securityService;
-    OrdersService ordersService;
-    ArtworkService artworkService;
+    private final UserService userService;
+    private final SecurityService securityService;
+    private final OrdersService ordersService;
+    private final ArtworkService artworkService;
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -40,40 +33,53 @@ public class OrderController {
     }
 
     @PostMapping("/order")
-    public String addOrder(@ModelAttribute("orders") Orders orders, @RequestParam("artwork_id") int artwork_id, Model model) {
+    public String addOrder(@ModelAttribute("orders") Orders orders, 
+                           @RequestParam("artwork_id") int artworkId, 
+                           Model model) {
         model.addAttribute("loggedIn", securityService.isLoggedIn());
-        int currentUserId;
-        currentUserId = userService.findByUsername(securityService.findLoggedInUsername()).getId();
+        
+        int currentUserId = userService.findByUsername(securityService.findLoggedInUsername()).getId();
         User user = userService.findByUserId(currentUserId);
-        System.out.println(user);
-        System.out.println(artwork_id);
-        Artwork artwork = artworkService.findArtworkById(artwork_id);
+        Artwork artwork = artworkService.findArtworkById(artworkId);
         int price = artwork.getPrice();
+        
         orders.setPrice(price);
-        System.out.println(price);
-        Date date = new Date();
-        Timestamp ts = new Timestamp(date.getTime());
-        ts.setTime(1000 * (long) Math.floor(ts.getTime() / 1000));
-        orders.setOrdered_at(ts);
-        System.out.println(ts);
-        artworkService.updateArtwork(artwork_id);
+        orders.setOrdered_at(new java.sql.Timestamp(System.currentTimeMillis()));
+        
+        artworkService.updateArtwork(artworkId);
         ordersService.save(orders, user, artwork);
 
-        //      start sending mail
+        // Start sending mail
+        try {
+            String from = "sai7997242043@gmail.com"; // Your Gmail address
+            String to = user.getEmail();
 
-        String from = "";
-        String to = user.getEmail();
+            if (to == null || to.isEmpty()) {
+                System.err.println("User email is empty or null. Skipping email sending.");
+                return "redirect:/homepage";
+            }
 
-        SimpleMailMessage message = new SimpleMailMessage();
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(from);
+            message.setTo(to);
+            message.setSubject("Your order for Artwork from Infinity Art Gallery");
+            message.setText(String.format(
+                "Hello %s! \n\n" +
+                "Thanks for your order #%d placed on %s with Infinity Art Gallery.\n" +
+                "Your Order total is %d$. We accept payment via cheque/debit/credit card.\n" +
+                "Simply reply to this mail to let us know how you wish to pay. We will send you further instructions.\n" +
+                "If you wish to cancel the order, reply to this mail. The due date for payment is up to 15 days.\n" +
+                "After that, we may have to cancel your order.\n\n" +
+                "Sincerely, \nInfinity Art Gallery",
+                user.getFirstName(), orders.getId(), orders.getOrdered_at(), orders.getPrice()
+            ));
 
-        message.setFrom(from);
-        message.setTo(to);
-        message.setSubject("Your order for Artwork from Infinity Art Gallery");
-        message.setText("Hello " + user.getFirstName() + "! \n" + "Thanks for your order #" + orders.getId() + " placed on " + orders.getOrdered_at() + " with Infinity Art Gallery." + " One of the best artwork from our gallery is headed your way! \n" + "\n" + "Your Order total is " + orders.getPrice() + "$. " + "We accept payment via cheque/debit/credit card. Simply reply to this mail to let us know how you wish to pay. We will send you a mail for further proceedings. " + "If you wish to cancel the order, let us know via replying to this mail. The due date for the payment is upto 15 days after recieving this mail. After that we may have to cancel your order. \n" + "\n" + "We love your choice of this master piece! If you have any queries, just reply to this mail and we'll be right back to you!" + "\n" + "\n" + "Sincerely, \n" + "Infinity Art Gallery");
-
-        javaMailSender.send(message);
-
-        //        end sending mail
+            javaMailSender.send(message);
+            System.out.println("Email sent successfully.");
+        } catch (Exception e) {
+            System.err.println("Error while sending email: " + e.getMessage());
+            e.printStackTrace();
+        }
 
         return "redirect:/homepage";
     }
